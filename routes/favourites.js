@@ -10,10 +10,13 @@ const router  = express.Router();
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    db.query(`SELECT * FROM users;`)
+    db.query(`SELECT * FROM favourites;`)
       .then(data => {
-        const users = data.rows;
-        res.json({ users });
+        const favourites = data.rows;
+        const templateVars = {
+          favourites
+        }
+        res.render("favourites", templateVars);
       })
       .catch(err => {
         res
@@ -21,7 +24,7 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
   return router;
 };
-
 
