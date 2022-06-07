@@ -8,14 +8,30 @@
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
   <link rel="stylesheet" href="/styles/main.css" type="text/css" />
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/header.css" type="text/css" />
 
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
 </head>
 
 <body>
-  <h1>Please REGISTER in to access the coolest shoes in the world...</h1>
-
+  <%- include('partials/_header') %>
+  <main>
+    <h3>Register</h3>
+    <form class="" action="/register" method="POST">
+        <div class="register">
+            <label for="username">Enter username: </label>
+            <input class="form-control" type="username" name="username" placeholder="" style="width: 300px; margin: 1em">
+            <label for="email">Enter an email: </label>
+            <input class="form-control" type="email" name="email" placeholder="" style="width: 300px; margin: 1em">
+            <label for="password">Enter a password: </label>
+            <input class="form-control" type="password" name="password" placeholder="" style="width: 300px; margin: 1em">
+        </div>
+    </form>
+    <form>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</main>
 </body>
 
 </html>
