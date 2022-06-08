@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="/styles/main.css" type="text/css" />
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
   <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/listings.css" type="text/css" />
 
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
@@ -17,7 +18,20 @@
 <body>
   <%- include('partials/_header') %>
   <h1>Listings</h1>
-
+  <form class="" action="/listings" method="POST">
+    <div class="listings">
+        <label for="title">Title: </label>
+        <input class="form-control" type="text" name="title" placeholder="" style="width: 300px; margin: 1em">
+        <label for="price">Price: </label>
+        <input class="form-control" type="$" name="price" placeholder="" style="width: 300px; margin: 1em">
+        <label for="size"> Size: </label>
+        <input class="form-control" type="number" name="size" placeholder="" style="width: 300px; margin: 1em">
+        <label for="description">Description: </label>
+        <input class="form-control" type="text" name="description" placeholder="" style="width: 300px; height: 200px; ; margin: 1em">
+        <label for="category">Image: </label>
+        <input class="form-control" type="text" name="category" placeholder="image url" style="width: 300px; margin: 1em">
+        <button type="submit" class="listingbtn">Add Listing</button>
+    </div>
+</form>
 </body>
-
 </html>
