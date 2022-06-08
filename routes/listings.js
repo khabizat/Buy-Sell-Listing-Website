@@ -48,22 +48,50 @@ module.exports = { addNewListing };
 
 
 
+const getSellerListings = function() {
+  //query to get all listings as a js object
+  return pool
+      .query(`SELECT * FROM shoes WHERE seller_id = 1`)
+      .then((result) => {
+        console.log(result.rows);
+        return result.rows;
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }
+
+// module.exports = { getListings };
+
 module.exports = (db) => {
   router.get("/", (req, res) => {
-
-    res.render('listings');
+    getSellerListings()
+    .then(data => {
+      const shoes = data;
+      const templateVars = {
+        shoes
+      }
+      res.render("listings", templateVars);
+    })
+    .catch(e => {
+      console.error(e);
+      res.send(e)
+    })
   });
 
   router.post('/', (req, res) => {
       const seller_id = 1;
       addNewListing({...req.body, seller_id})
       .then(shoe => {
-        res.redirect('/')
+        res.redirect("listings")
       })
       .catch(e => {
         console.error(e);
         res.send(e)
       });
+//
+
+//
   });
   return router;
 };
