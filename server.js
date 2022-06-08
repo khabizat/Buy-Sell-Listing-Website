@@ -60,12 +60,24 @@ app.use("/listings", listingsRoutes(db));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
+const {getListings} = require("./routes/index");
 app.get("/", (req, res) => {
-  res.render("index");
+  getListings()
+  // .then(shoes => res.send({shoes}))
+  .then(data => {
+    // console.log('HERE', data);
+    const shoes = data;
+    const templateVars = {
+      shoes
+    }
+    res.render("index", templateVars);
+  })
+  .catch(e => {
+    console.error(e);
+    res.send(e)
+  })
 });
-app.get("/shoes/:id", () => {
 
-})
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
