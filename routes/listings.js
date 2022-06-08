@@ -14,31 +14,23 @@ const pool = new Pool({
 
 
 const addNewListing = function(shoe) {
-  const queryString =
-  `INSERT INTO shoes (
-    seller_id,
-    title,
-    description,
-    size,
-    price,
-    photo_url
-    )
-  VALUES ($1, $2, $3, $4, $5, $6)
-  RETURNING *`;
-
-  const values =
-  [
+  let queryString = `INSERT INTO shoes (
+  seller_id,
+  title,
+  description,
+  size,
+  price,
+  photo_url) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;`
+  let queryParams = [
     shoe.seller_id,
     shoe.title,
     shoe.description,
     shoe.size,
     shoe.price,
-    shoe.photo_url
+    shoe.img || null
   ];
-
-
   return pool
-  .query(queryString, values)
+  .query(queryString, queryParams)
   .then((result) => {
     return result.rows[0];
   })
@@ -46,14 +38,12 @@ const addNewListing = function(shoe) {
 module.exports = { addNewListing };
 
 
-
-
 const getSellerListings = function() {
   //query to get all listings as a js object
   return pool
       .query(`SELECT * FROM shoes WHERE seller_id = 1`)
       .then((result) => {
-        console.log(result.rows);
+        // console.log(result.rows);
         return result.rows;
       })
       .catch((err) => {
@@ -68,6 +58,7 @@ module.exports = (db) => {
     getSellerListings()
     .then(data => {
       const shoes = data;
+      console.log(shoes)
       const templateVars = {
         shoes
       }
@@ -81,6 +72,7 @@ module.exports = (db) => {
 
   router.post('/', (req, res) => {
       const seller_id = 1;
+
       addNewListing({...req.body, seller_id})
       .then(shoe => {
         res.redirect("listings")
