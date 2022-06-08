@@ -31,9 +31,9 @@
             <label for="size"> Size: </label>
             <input class="form-control" type="number" name="size" placeholder="" style="width: 300px; margin: 1em">
             <label for="description">Description: </label>
-            <input class="form-control" type="text" name="description" placeholder="" style="width: 300px; height: 200px; ; margin: 1em">
+            <textarea class="form-control" type="text" name="description" placeholder="" style="width: 300px; margin: 1em"></textarea>
             <label for="category">Image: </label>
-            <input class="form-control" type="text" name="category" placeholder="image url" style="width: 300px; margin: 1em">
+            <input class="form-control" type="text" name="img" placeholder="image url" style="width: 300px; margin: 1em">
             <button type="submit" class="listingbtn">Add Listing</button>
           </div>
         </form>
@@ -41,7 +41,7 @@
       <section class="listings-page-listing">
         <% for (let listing of shoes) { %>
                 <div class="individual-listing">
-                  <div class="listing-img"><img src="<%= listing.photo_url %>" alt="photo of shoe"></div>
+                  <div class="listing-img"><img src="<%= listing.photo_url || 'https://images.pexels.com/photos/7004739/pexels-photo-7004739.jpeg'%>" alt="photo of shoe"></div>
                   <div class="listing-main">
                     <span><%= listing.title %></span>
                     <div class="listing-details">
