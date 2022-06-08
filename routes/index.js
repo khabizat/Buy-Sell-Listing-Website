@@ -40,4 +40,6 @@ return pool
     });
 }
 
+
+
 module.exports = { getListings };
