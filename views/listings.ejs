@@ -16,22 +16,50 @@
 </head>
 
 <body>
+
   <%- include('partials/_header') %>
-  <h1>Listings</h1>
-  <form class="" action="/listings" method="POST">
-    <div class="listings">
-        <label for="title">Title: </label>
-        <input class="form-control" type="text" name="title" placeholder="" style="width: 300px; margin: 1em">
-        <label for="price">Price: </label>
-        <input class="form-control" type="$" name="price" placeholder="" style="width: 300px; margin: 1em">
-        <label for="size"> Size: </label>
-        <input class="form-control" type="number" name="size" placeholder="" style="width: 300px; margin: 1em">
-        <label for="description">Description: </label>
-        <input class="form-control" type="text" name="description" placeholder="" style="width: 300px; height: 200px; ; margin: 1em">
-        <label for="category">Image: </label>
-        <input class="form-control" type="text" name="category" placeholder="image url" style="width: 300px; margin: 1em">
-        <button type="submit" class="listingbtn">Add Listing</button>
-    </div>
-</form>
-</body>
+
+  <main>
+    <section class="listings-main">
+      <section class="listings-form">
+        <form class="" action="/listings" method="POST">
+          <div class="listings-form">
+            <label for="title">Title: </label>
+            <input class="form-control" type="text" name="title" placeholder="" style="width: 300px; margin: 1em">
+            <label for="price">Price: </label>
+            <input class="form-control" type="$" name="price" placeholder="" style="width: 300px; margin: 1em">
+            <label for="size"> Size: </label>
+            <input class="form-control" type="number" name="size" placeholder="" style="width: 300px; margin: 1em">
+            <label for="description">Description: </label>
+            <input class="form-control" type="text" name="description" placeholder="" style="width: 300px; height: 200px; ; margin: 1em">
+            <label for="category">Image: </label>
+            <input class="form-control" type="text" name="category" placeholder="image url" style="width: 300px; margin: 1em">
+            <button type="submit" class="listingbtn">Add Listing</button>
+          </div>
+        </form>
+      </section>
+      <section class="listings-page-listing">
+        <% for (let listing of shoes) { %>
+                <div class="individual-listing">
+                  <div class="listing-img"><img src="<%= listing.photo_url %>" alt="photo of shoe"></div>
+                  <div class="listing-main">
+                    <span><%= listing.title %></span>
+                    <div class="listing-details">
+                      <div>$<%= listing.price/100 %></div>
+                      <div><%= listing.size %></div>
+                      <i class="fa-solid fa-heart"></i>
+                    </div>
+                    <div class="listing-description"><p><%= listing.description %></p></div>
+                  </div>
+                  <div class="listing-footer">
+                    <div class="listing-like-icon">
+                      <i class="fa-solid fa-heart"></i>
+                    </div>
+                  </div>
+                </div>
+                <% } %>
+        </section>
+      </section>
+    </main>
+ </body>
 </html>

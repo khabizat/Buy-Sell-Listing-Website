@@ -19,13 +19,13 @@
 <body>
   <%- include('partials/_header') %>
 
-<main>
-  <!--Banner Image-->
-  <!-- for loop accessing query from shoes table -->
+  <main>
   <div id="banner">
     <img src="https://images.pexels.com/photos/1020372/pexels-photo-1020372.jpeg">
   </div>
   <div class="big-section">
+  <!--Banner Image-->
+  <!-- for loop accessing query from shoes table -->
     <!--database queries -->
     <section class="filter">
       <form id="" action="" method="POST">
@@ -35,10 +35,11 @@
       </ul>
       </form>
     </section>
+
     <section class="main-page-listing">
       <% for (let listing of shoes) { %>
         <div class="individual-listing">
-          <div class="listing-img"><img src="<%= listing.photo_url %>" alt="photo of shoe" width="100px" height="100px"></div>
+          <div class="listing-img"><img src="<%= listing.photo_url %>" alt="photo of shoe"></div>
           <div class="listing-main">
             <span><%= listing.title %></span>
             <div class="listing-details">
@@ -49,7 +50,7 @@
             <div class="listing-description"><p><%= listing.description %></p></div>
           </div>
           <div  class="listing-footer">
-             <div><i class="fa-solid fa-heart" style="height: 100px;"></i></div>
+             <div><i class="fa-solid fa-heart"></i></div>
           </div>
         </div>
       <% } %>

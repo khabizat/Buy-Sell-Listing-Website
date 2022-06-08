@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="/styles/main.css" type="text/css" />
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
   <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/favourites.css" type="text/css" />
 
 
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
@@ -17,9 +18,32 @@
 
 <body>
   <%- include('partials/_header') %>
-  <main>
-    <h1>FAVOURITES</h1>
-  </main>
-</body>
-
+    <main>
+<div class="favourites-page-Title"><h1> Favourites </h1></div>
+      <section class="favourites-main">
+          <% for (let listing of shoes) { %>
+            <div class="individual-listing">
+              <div class="listing-img"><img src="<%= listing.photo_url %>" alt="photo of shoe"></div>
+              <div class="listing-main">
+                <span><%= listing.title %></span>
+                <div class="listing-details">
+                  <div>$<%= listing.price/100 %></div>
+                  <div><%= listing.size %></div>
+                  <i class="fa-solid fa-heart"></i>
+                  </div>
+                  <div class="listing-description"><p><%= listing.description %></p></div>
+                  </div>
+                  <div class="listing-footer">
+                  <div class="listing-like-icon">
+                  <i class="fa-solid fa-heart"></i>
+                </div>
+              </div>
+            </div>
+          <% } %>
+        </section>
+    </main>
+  </body>
 </html>
+
+
+
