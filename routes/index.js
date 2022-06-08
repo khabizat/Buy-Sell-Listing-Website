@@ -16,43 +16,28 @@
  // post like
 
 
-// const findLowprices = function() {
-    // router.get("/Lowprices", (req, res) => {
-    //     db.query(`SELECT * FROM shoes;`)
-    //       .then(data => {
-    //         const shoes = data.rows;
-    //         const templateVars = {
-    //           shoes
-    //         }
-    //         res.render("index", templateVars);
-    //       })
-    //       .catch(err => {
-    //         res
-    //           .status(500)
-    //           .json({ error: err.message });
-    //       });
-    //   });
+const { Pool } = require('pg');
+/// Users
 
-    //   return router;
-// }
+const pool = new Pool({
+  user: 'labber',
+  password: 'labber',
+  host: 'localhost',
+  database: 'midterm'
+});
 
-// module.exports = (db) => {
-//   router.get("/", (req, res) => {
-//     db.query(`SELECT * FROM shoes;`)
-//       .then(data => {
-//         const shoes = data.rows;
-//         const templateVars = {
-//           shoes
-//         }
-//         res.render("index", templateVars);
-//       })
-//       .catch(err => {
-//         res
-//           .status(500)
-//           .json({ error: err.message });
-//       });
-//   });
 
-//   return router;
-// };
+const getListings = function() {
+//query to get all listings as a js object
+return pool
+    .query(`SELECT * FROM shoes`)
+    .then((result) => {
+      console.log(result.rows);
+      return result.rows;
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+}
 
+module.exports = { getListings };
