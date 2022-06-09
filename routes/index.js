@@ -9,13 +9,6 @@
 // const router  = express.Router();
 
 
-
-// ajax requests for
- // filter
- // get messages popout
- // post like
-
-
 const { Pool } = require('pg');
 /// Users
 
