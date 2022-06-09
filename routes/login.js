@@ -17,107 +17,78 @@ const pool = new Pool({
 });
 
 
+const getUserID = function(email) {
+  return pool
+  .query(`SELECT id, password
+          FROM users
+          WHERE users.email = $1`, [email])
+  .then((result) => {
+    console.log('TEST FROM', result.rows[0])
+    return result.rows[0];
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+}
+const getUserName = function (user_id) {
+  return pool
+  .query(`SELECT name
+          FROM users
+          WHERE users.id = $1`, [user_id])
+  .then((result) => {
+    console.log('TEST FROM GET USER NAME', result.rows[0])
+    return result.rows[0];
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+}
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
+    getUserName(req.session.user_id)
+    .then(user_name => {
+      const templateVars = {
+        user_name
+      }
+      console.log('TEST FROM server.js ', templateVars.user_name)
 
-
-    // const userId = req.session.userID;
-    // const user = users[userId];
-    // if (user) {
-    //   res.redirect("/");
-    // } else {
-      res.render('login');
-    // }
-  });
-
-  const compareCredentials = function (email, password) {
-    return pool
-    .query(`SELECT *
-            FROM users
-            WHERE users.email = $1
-            AND users.password = $2`, [email, password])
-    .then((result) => {
-      console.log(result.rows[0]);
-      return result.rows[0];
+      return res.render("login", templateVars);
     })
     .catch((err) => {
       console.log(err.message);
     });
-  }
+  });
 
-  router.post("/", () => {
-    console.log('TESTING 123')
+  router.post("/", (req, res) => {
     const  { email, password } = req.body;
 
     if (!email || !password) {
       return res.sendStatus(400);
     }
-    // else if (getUserWithEmail(email)) {
-    //   return res.sendStatus(400);
-    // }
-    //if email exists
-    if (true) {
 
-    }
-    //password to string
-    const enteredpwd = password.toString();
+    const enteredpwd = password;
 
-    //if password and (hashed) password from db are ===
-    //set session cookie based off of of users.id
-    if (varifyLogin(email, enteredpwd)) {
-      compareCredentials(email, password);
-      req.session.user_id = getUserID();
-      res.redirect('/');
-    }
-    return res.redirect('/register')// alert to issue ( if time replace with drop down warning like in tweeter )
+    getUserID(email)
+    .then(user => {
+      if (!user) {
+        console.log('TESTING IF STATEMENT')
+        return res.status(400).send('Please enter valid email');
+       }
+       const dbPassword = user.password;
+       const pwdmatch = bcrypt.compareSync(enteredpwd, dbPassword)
+       if (!pwdmatch) {
+        return res.status(400).send('Please enter valid password');
+       }
+
+       req.session.user_id = user.id;
+       return res.redirect('/');
+      })
+    .catch((err) => {
+      console.log(err.message);
+    });
   })
 
   return router;
 }
 
-const varifyLogin= function(email, password) {
-  return pool
-  .query(`SELECT users.id
-          FROM users
-          WHERE users.email = $1
-          AND users.password = $2`, [email, password])
-  .then((result) => {
-    console.log('TEST FROM varifyLogin', result.rows);
-    return result.rows;
-  })
-  .catch((err) => {
-    console.log(err.message);
-  });
-}
-
-const getUserID = function(email, password) {
-  return pool
-  .query(`SELECT users.id
-          FROM users
-          WHERE users.email = $1
-          AND users.password = $2`, [email, password])
-  .then((result) => {
-    console.log('TEST FROM getUserID', result.rows)
-    return result.rows;
-  })
-  .catch((err) => {
-    console.log(err.message);
-  });
-}
-
-/**
- *
-
-  if (getUserByEmail(email, userList)) {
-    const loginpwd = password.toString();
-    const hashedPassword = userList[email].hashedPassword;
-    if (bcrypt.compareSync(loginpwd, hashedPassword)) {
-      req.session.user_id = userList[email].id;
-      return res.redirect('/urls');
-    }
-  }
-  res.sendStatus(403);
-});
- *
- */
