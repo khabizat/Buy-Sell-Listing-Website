@@ -2,11 +2,18 @@
 require("dotenv").config();
 
 // Web server config
-const PORT = process.env.PORT || 8080;
-const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
+const cookieSession = require("cookie-session")
+app.use(cookieSession({
+  name: 'session',
+  keys: ["key1"],
+}))
+const PORT = process.env.PORT || 8080;
+const sassMiddleware = require("./lib/sass-middleware");
+
+
 
 // PG database client/connection setup
 const { Pool } = require("pg");
