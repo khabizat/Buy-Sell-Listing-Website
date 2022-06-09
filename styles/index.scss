@@ -33,5 +33,21 @@
   gap: 2em;
 }
 
+.add-to-favourites{
+  font-size: 0.7em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: rgb(15, 14, 14);
 
+}
+
+.add-to-favourites i {
+  color: rgb(130, 15, 15);
+ }
+
+.add-to-favourites i:hover {
+ color: rgb(255, 0, 0);
+ transform: scale(1.5);
+}
 
