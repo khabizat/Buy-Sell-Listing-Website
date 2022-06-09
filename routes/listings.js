@@ -35,6 +35,7 @@ const addNewListing = function(shoe) {
     return result.rows[0];
   })
 };
+
 module.exports = { addNewListing };
 
 
@@ -81,9 +82,6 @@ module.exports = (db) => {
         console.error(e);
         res.send(e)
       });
-//
-
-//
   });
   return router;
 };
