@@ -18,9 +18,18 @@ const pool = new Pool({
 
 
 
-module.exports = (pool) => {
+module.exports = (db) => {
   router.get("/", (req, res) => {
-    res.render('register');
+    getUserName(req.session.user_id)
+    .then(user_name => {
+      const templateVars = {
+        user_name
+      }
+      return res.render("register", templateVars);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
   });
 
 
@@ -41,6 +50,18 @@ module.exports = (pool) => {
   return router;
 };
 
+const getUserName = function (user_id) {
+  return pool
+  .query(`SELECT name
+          FROM users
+          WHERE users.id = $1`, [user_id])
+  .then((result) => {
+    return result.rows[0];
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+}
 
 
 const getUserWithEmail = (email) => {

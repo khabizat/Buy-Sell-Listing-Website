@@ -17,32 +17,6 @@ const pool = new Pool({
 });
 
 
-const getUserID = function(email) {
-  return pool
-  .query(`SELECT id, password
-          FROM users
-          WHERE users.email = $1`, [email])
-  .then((result) => {
-    console.log('TEST FROM', result.rows[0])
-    return result.rows[0];
-  })
-  .catch((err) => {
-    console.log(err.message);
-  });
-}
-const getUserName = function (user_id) {
-  return pool
-  .query(`SELECT name
-          FROM users
-          WHERE users.id = $1`, [user_id])
-  .then((result) => {
-    console.log('TEST FROM GET USER NAME', result.rows[0])
-    return result.rows[0];
-  })
-  .catch((err) => {
-    console.log(err.message);
-  });
-}
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
@@ -92,3 +66,29 @@ module.exports = (db) => {
   return router;
 }
 
+const getUserID = function(email) {
+  return pool
+  .query(`SELECT id, password
+          FROM users
+          WHERE users.email = $1`, [email])
+  .then((result) => {
+    console.log('TEST FROM', result.rows[0])
+    return result.rows[0];
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+}
+const getUserName = function (user_id) {
+  return pool
+  .query(`SELECT name
+          FROM users
+          WHERE users.id = $1`, [user_id])
+  .then((result) => {
+    console.log('TEST FROM GET USER NAME', result.rows[0])
+    return result.rows[0];
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+}
