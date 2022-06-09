@@ -22,7 +22,7 @@ const pool = new Pool({
 
 const getListings = function() {
 //query to get all listings as a js object
-return pool
+  return pool
     .query(`SELECT * FROM shoes`)
     .then((result) => {
       console.log(result.rows);
