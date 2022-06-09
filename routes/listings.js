@@ -52,23 +52,45 @@ const getSellerListings = function() {
       });
   }
 
-// module.exports = { getListings };
 
-module.exports = (db) => {
-  router.get("/", (req, res) => {
-    getSellerListings()
-    .then(data => {
-      const shoes = data;
-      console.log(shoes)
-      const templateVars = {
-        shoes
-      }
-      res.render("listings", templateVars);
+  const getUserName = function (user_id) {
+    return pool
+    .query(`SELECT name
+            FROM users
+            WHERE users.id = $1`, [user_id])
+    .then((result) => {
+      return result.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+  }
+
+
+
+  // module.exports = { getListings };
+
+  module.exports = (db) => {
+    router.get("/", (req, res) => {
+      getSellerListings()
+      .then(data => {
+        const shoes = data;
+        getUserName(req.session.user_id)
+        .then(user_name => {
+          const shoes = data;
+          const templateVars = {
+            shoes,
+            user_name
+          }
+          return res.render("listings", templateVars);
+        })
     })
     .catch(e => {
       console.error(e);
       res.send(e)
     })
+
+
   });
 
   router.post('/', (req, res) => {

@@ -36,15 +36,36 @@ const getFavourites = function() {
       });
   }
 
+  const getUserName = function (user_id) {
+    return pool
+    .query(`SELECT name
+            FROM users
+            WHERE users.id = $1`, [user_id])
+    .then((result) => {
+      return result.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+  }
+
+
 module.exports = (db) => {
   router.get("/", (req, res) => {
     getFavourites()
     .then(data => {
       const shoes = data;
-      const templateVars = {
-        shoes
-      }
-      res.render("favourites", templateVars);
+      getUserName(req.session.user_id)
+      .then(user_name => {
+        const templateVars = {
+          user_name,
+          shoes
+        }
+        return res.render("favourites", templateVars);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
     })
     .catch(e => {
       console.error(e);
