@@ -18,7 +18,7 @@ const pool = new Pool({
   port: process.env.DB_PORT
 });
 
-const getFavourites = function() {
+const getFavourites = function(user_id) {
   //query to get all listings as a js object
   return pool
       .query(`
@@ -26,7 +26,7 @@ const getFavourites = function() {
       FROM favourites
       JOIN shoes ON shoe_id=shoes.id
       JOIN users ON user_id = users.id
-      WHERE user_id = 1;`)
+      WHERE user_id = $1;`, [user_id])
       .then((result) => {
         console.log(result.rows);
         return result.rows;
@@ -52,7 +52,8 @@ const getFavourites = function() {
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    getFavourites()
+    const user_id = req.session.user_id;
+    getFavourites(user_id)
     .then(data => {
       const shoes = data;
       getUserName(req.session.user_id)

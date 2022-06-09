@@ -39,10 +39,10 @@ const addNewListing = function(shoe) {
 module.exports = { addNewListing };
 
 
-const getSellerListings = function() {
+const getSellerListings = function(user_id) {
   //query to get all listings as a js object
   return pool
-      .query(`SELECT * FROM shoes WHERE seller_id = 1`)
+      .query(`SELECT * FROM shoes WHERE seller_id = $1`, [user_id])
       .then((result) => {
         // console.log(result.rows);
         return result.rows;
@@ -72,7 +72,8 @@ const getSellerListings = function() {
 
   module.exports = (db) => {
     router.get("/", (req, res) => {
-      getSellerListings()
+      const user_id = req.session.user_id;
+      getSellerListings(user_id)
       .then(data => {
         const shoes = data;
         getUserName(req.session.user_id)
