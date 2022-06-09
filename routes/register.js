@@ -81,4 +81,3 @@ const getUserID = (id) => {
     });
 };
 
-// module.exports = { getUserWithEmail, getUserID, addNewUser}
