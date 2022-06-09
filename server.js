@@ -21,6 +21,13 @@ const dbParams = require("./lib/db.js");
 const db = new Pool(dbParams);
 db.connect();
 
+const pool = new Pool({
+  user: 'labber',
+  password: 'labber',
+  host: 'localhost',
+  database: 'midterm'
+});
+
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
@@ -48,6 +55,7 @@ const registerRoutes = require("./routes/register");
 const messagesRoutes = require("./routes/messages");
 const favouritesRoutes = require("./routes/favourites");
 const listingsRoutes = require("./routes/listings");
+const logoutRoutes = require("./routes/logout");
 
 
 // Mount all resource routes
@@ -59,7 +67,7 @@ app.use("/register", registerRoutes(db));
 app.use("/messages", messagesRoutes(db));
 app.use("/favourites", favouritesRoutes(db));
 app.use("/listings", listingsRoutes(db));
-
+app.use("/logout", logoutRoutes(db));
 
 // Note: mount other resources here, using the same pattern above
 
@@ -67,17 +75,38 @@ app.use("/listings", listingsRoutes(db));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
+const getUserName = function (user_id) {
+  return pool
+  .query(`SELECT name
+          FROM users
+          WHERE users.id = $1`, [user_id])
+  .then((result) => {
+    return result.rows[0];
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+}
+
+
 const {getListings} = require("./routes/index");
 app.get("/", (req, res) => {
+
   getListings()
   // .then(shoes => res.send({shoes}))
   .then(data => {
     // console.log('HERE', data);
-    const shoes = data;
-    const templateVars = {
-      shoes
-    }
-    res.render("index", templateVars);
+    getUserName(req.session.user_id)
+    .then(user_name => {
+      const shoes = data;
+      const templateVars = {
+        shoes,
+        user_name
+      }
+      console.log('TEST FROM server.js ', templateVars.user_name)
+
+      return res.render("index", templateVars);
+    })
   })
   .catch(e => {
     console.error(e);
