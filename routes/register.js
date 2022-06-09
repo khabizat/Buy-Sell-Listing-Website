@@ -47,6 +47,7 @@ const getUserWithEmail = (email) => {
   return pool
     .query(`SELECT * FROM users WHERE users.email = $1`, [email])
     .then((result) => {
+      console.log('TESTING getUserWithEmail')
       console.log(result.rows[0]);
       return result.rows[0];
     })
@@ -80,3 +81,4 @@ const getUserID = (id) => {
     });
 };
 
+// module.exports = { getUserWithEmail, getUserID, addNewUser}
