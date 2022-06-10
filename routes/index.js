@@ -25,7 +25,6 @@ const getListings = function() {
   return pool
     .query(`SELECT * FROM shoes`)
     .then((result) => {
-      console.log(result.rows);
       return result.rows;
     })
     .catch((err) => {

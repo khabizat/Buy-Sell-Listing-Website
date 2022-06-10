@@ -33,7 +33,7 @@
   gap: 2em;
 }
 
-.add-to-favourites{
+.listing-actions {
   font-size: 0.7em;
   display: flex;
   flex-direction: row;
@@ -44,18 +44,30 @@
 
 .add-to-favourites {
   color: rgb(130, 15, 15);
+  font-size: 1em;
  }
 
 .add-to-favourites:hover {
- color: rgb(255, 0, 0);
- transform: scale(1.5);
+  color: rgb(255, 0, 0);
+  transform: scale(1.5);
 }
 
 .message-seller {
- color: rgb(19, 19, 220);
+  color: rgb(19, 19, 220);
+  font-size: 1em;
 }
 
 .message-seller:hover {
-  color: rgb(33, 33, 249);
+  color: rgb(92, 92, 239);
   transform: scale(1.5);
  }
+
+
+.icons {
+  width: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+

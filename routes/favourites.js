@@ -9,7 +9,6 @@ const express = require('express');
 const router  = express.Router();
 
 
-
 const getFavourites = function(user_id, db) {
   //query to get all listings as a js object
   return db
@@ -42,8 +41,8 @@ const getFavourites = function(user_id, db) {
   }
 
 
-module.exports = (db) => {
-  router.get("/", (req, res) => {
+  module.exports = (db) => {
+    router.get("/", (req, res) => {
     const user_id = req.session.user_id;
     getFavourites(user_id, db)
     .then(data => {
@@ -66,5 +65,62 @@ module.exports = (db) => {
     })
   });
 
+
+  router.post('/', (req, res) => {
+    console.log(req.body, '<<<<From favourites POST')
+    const shoe_id = 3;
+    const user_id = req.session.user_id;
+    addToFavourites(shoe_id, user_id, db)
+    .then(result => {
+      console.log('ADD TO FAVOURITES!')
+      return console.log(`added to favourites`);
+    })
+    .catch(e => {
+      console.error(e);
+      res.send(e)
+    })
+  })
   return router;
+
 };
+
+const addToFavourites = (shoe_id, user_id, db) => {
+  let queryString = `INSERT INTO favourites (
+    shoe_id,
+    user_id) VALUES ($1, $2) RETURNING *;`
+    let queryParams = [
+      shoe_id,
+      user_id
+    ];
+  return db
+  .query(queryString, queryParams)
+  .then((result) => {
+    return result.rows[0];
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+}
+
+// const addNewListing = function(shoe, db) {
+//   let queryString = `INSERT INTO shoes (
+//   seller_id,
+//   title,
+//   description,
+//   size,
+//   price,
+//   photo_url) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;`
+//   let queryParams = [
+//     shoe.seller_id,
+//     shoe.title,
+//     shoe.description,
+//     shoe.size,
+//     shoe.price,
+//     shoe.img || null
+//   ];
+//   return db
+//   .query(queryString, queryParams)
+//   .then((result) => {
+//     return result.rows[0];
+//   })
+// };

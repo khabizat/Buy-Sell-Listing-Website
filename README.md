@@ -1,15 +1,32 @@
-LHL Node Skeleton
+Buy/Sell Listing Website
 =========
 
-## Project Setup
+## Shoestagram
 
-The following steps are only for _one_ of the group members to perform.
+The following project is an app where you can put shoes up for sale. As a user you can purchase or post shoes to sell for the app. 
+If you choose to sell, make sure to set the price.This lets buyers find the items within their budget quickly, and easily contact sellers.
 
-1. Create your own copy of this repo using the `Use This Template` button, ideally using the name of your project. The repo should be marked Public
-2. Verify that the skeleton code now shows up in your repo on GitHub, you should be automatically redirected
-3. Clone your copy of the repo to your dev machine
-4. Add your team members as collaborators to the project so that they can push to this repo
-5. Let your team members know the repo URL so that they use the same repo (they should _not_ create a copy/fork of this repo since that will add additional workflow complexity to the project)
+### Features
+
+#### Users:
+
+-Can see featured shoes on main feed
+
+-Can filter shoes by price
+
+-Add favourite shoes to check up on them later
+
+-Send messages to the user that is listing the shoe
+
+### Admins:
+
+-Post items, which can be seen by others
+
+-Remove items from the site
+
+-Mark items as SOLD!,
+
+-Send a message via app,  on negotiations in buying the said shoe
 
 
 ## Getting Started
@@ -41,3 +58,13 @@ The following steps are only for _one_ of the group members to perform.
 - Node 10.x or above
 - NPM 5.x or above
 - PG 6.x
+- Sass 1.3x 
+- Morgan 1.9x
+- Express 1.9x
+- Ejs 2.6x
+- Dotenv 2.0x
+- Cookie Session 2.0x
+- Chalk 1.4x
+- Body Parser 1.2x
+- Bcryptjs 2.4x
+ 

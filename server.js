@@ -74,6 +74,7 @@ app.use("/logout", logoutRoutes(db));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
+//>>
 const getUserName = function (user_id) {
   return pool
   .query(`SELECT name
@@ -90,7 +91,6 @@ const getUserName = function (user_id) {
 
 const {getListings} = require("./routes/index");
 app.get("/", (req, res) => {
-
   getListings()
   // .then(shoes => res.send({shoes}))
   .then(data => {
@@ -110,6 +110,7 @@ app.get("/", (req, res) => {
     res.send(e)
   })
 });
+
 
 
 app.listen(PORT, () => {

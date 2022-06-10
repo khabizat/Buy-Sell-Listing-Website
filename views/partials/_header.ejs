@@ -14,13 +14,13 @@
     <% } else { %>
       <li><a href="/favourites">Favourites</a></li>
       <li><a href="/listings">My Listings</a></li>
-      <li class="mr-2"> Logged in as: <%= user_name.name %> </li>
+      <li class="mr-2"> Logged In As: <%= user_name.name %> </li>
       <form class="navbar-nav" method="get" action="/messages">
-        <button class="btn btn-primary ">messages</button>
+        <button class="btn btn-primary ">Messages</button>
       </form>
 
       <form class="navbar-nav" method="post" action="/logout">
-        <button class="btn btn-primary ">Log out</button>
+        <button class="btn btn-primary ">Log Out</button>
       </form>
       <% } %>
     </ul>

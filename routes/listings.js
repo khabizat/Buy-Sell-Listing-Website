@@ -82,15 +82,14 @@ const getSellerListings = function(user_id, db) {
   });
 
   router.post('/', (req, res) => {
-      const seller_id = 1;
-
-      addNewListing({...req.body, seller_id})
+      const seller_id = req.session.user_id;
+      addNewListing({...req.body, seller_id }, db)
       .then(shoe => {
-        res.redirect("listings")
+        res.redirect("listings");
       })
       .catch(e => {
         console.error(e);
-        res.send(e)
+        res.send(e);
       });
   });
   return router;

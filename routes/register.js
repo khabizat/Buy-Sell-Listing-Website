@@ -22,7 +22,6 @@ module.exports = (db) => {
     });
   });
 
-
   router.post('/', (req, res) => {
     const  { username, email, password } = req.body;
     const hashedPassword = bcrypt.hashSync(password, 10);
@@ -36,7 +35,6 @@ module.exports = (db) => {
     req.session.user_id = getUserID(email, db);
     res.redirect('/');
   });
-
   return router;
 };
 
