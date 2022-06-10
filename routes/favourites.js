@@ -8,19 +8,11 @@
 const express = require('express');
 const router  = express.Router();
 
-const { Pool } = require('pg');
 
-const pool = new Pool({
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  port: process.env.DB_PORT
-});
 
-const getFavourites = function(user_id) {
+const getFavourites = function(user_id, db) {
   //query to get all listings as a js object
-  return pool
+  return db
       .query(`
       SELECT *
       FROM favourites
@@ -36,8 +28,8 @@ const getFavourites = function(user_id) {
       });
   }
 
-  const getUserName = function (user_id) {
-    return pool
+  const getUserName = function (user_id, db) {
+    return db
     .query(`SELECT name
             FROM users
             WHERE users.id = $1`, [user_id])
@@ -53,10 +45,10 @@ const getFavourites = function(user_id) {
 module.exports = (db) => {
   router.get("/", (req, res) => {
     const user_id = req.session.user_id;
-    getFavourites(user_id)
+    getFavourites(user_id, db)
     .then(data => {
       const shoes = data;
-      getUserName(req.session.user_id)
+      getUserName(req.session.user_id, db)
       .then(user_name => {
         const templateVars = {
           user_name,

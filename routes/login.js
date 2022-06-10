@@ -7,20 +7,12 @@ router.use(cookieSession({
   keys: ['key1']
 }))
 
-const { Pool } = require('pg');
-const pool = new Pool({
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  port: process.env.DB_PORT
-});
 
 
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    getUserName(req.session.user_id)
+    getUserName(req.session.user_id, db)
     .then(user_name => {
       const templateVars = {
         user_name
@@ -43,7 +35,7 @@ module.exports = (db) => {
 
     const enteredpwd = password;
 
-    getUserID(email)
+    getUserID(email, db)
     .then(user => {
       if (!user) {
         console.log('TESTING IF STATEMENT')
@@ -66,8 +58,8 @@ module.exports = (db) => {
   return router;
 }
 
-const getUserID = function(email) {
-  return pool
+const getUserID = function(email, db) {
+  return db
   .query(`SELECT id, password
           FROM users
           WHERE users.email = $1`, [email])
@@ -79,8 +71,8 @@ const getUserID = function(email) {
     console.log(err.message);
   });
 }
-const getUserName = function (user_id) {
-  return pool
+const getUserName = function (user_id, db) {
+  return db
   .query(`SELECT name
           FROM users
           WHERE users.id = $1`, [user_id])

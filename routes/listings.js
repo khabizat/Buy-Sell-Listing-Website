@@ -2,18 +2,7 @@ const express = require('express');
 const router  = express.Router();
 
 
-const { Pool } = require('pg');
-
-const pool = new Pool({
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  port: process.env.DB_PORT
-});
-
-
-const addNewListing = function(shoe) {
+const addNewListing = function(shoe, db) {
   let queryString = `INSERT INTO shoes (
   seller_id,
   title,
@@ -29,19 +18,17 @@ const addNewListing = function(shoe) {
     shoe.price,
     shoe.img || null
   ];
-  return pool
+  return db
   .query(queryString, queryParams)
   .then((result) => {
     return result.rows[0];
   })
 };
 
-module.exports = { addNewListing };
 
-
-const getSellerListings = function(user_id) {
+const getSellerListings = function(user_id, db) {
   //query to get all listings as a js object
-  return pool
+  return db
       .query(`SELECT * FROM shoes WHERE seller_id = $1`, [user_id])
       .then((result) => {
         // console.log(result.rows);
@@ -53,8 +40,8 @@ const getSellerListings = function(user_id) {
   }
 
 
-  const getUserName = function (user_id) {
-    return pool
+  const getUserName = function (user_id, db) {
+    return db
     .query(`SELECT name
             FROM users
             WHERE users.id = $1`, [user_id])
@@ -73,10 +60,10 @@ const getSellerListings = function(user_id) {
   module.exports = (db) => {
     router.get("/", (req, res) => {
       const user_id = req.session.user_id;
-      getSellerListings(user_id)
+      getSellerListings(user_id, db)
       .then(data => {
         const shoes = data;
-        getUserName(req.session.user_id)
+        getUserName(req.session.user_id, db)
         .then(user_name => {
           const shoes = data;
           const templateVars = {
