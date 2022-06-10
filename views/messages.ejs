@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <title>Messages center</title>
+  <title>My Messages</title>
 
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
@@ -11,24 +11,46 @@
   <link rel="stylesheet" href="/styles/header.css" type="text/css" />
   <link rel="stylesheet" href="/styles/messages.css" type="text/css" />
 
-
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
-  
 </head>
 
 <body>
+
   <%- include('partials/_header') %>
-  <h1>Messages from the people to the people 📬</h1>
 
-<!--Web Dev Simplified Chat tutorial -->
-<div id="message-container"></div>
-<form id="send-container">
-  <input type="text" id="message-input"></input>
-  <button type="submit" id="send-button">Send</button>
-</form>
-
-
-</body>
-
+  <main>
+    <section class="messages-main">
+      <section class="messages-form">
+        <form class="" action="/messages" method="POST">
+          <div class="message-form">
+            <label for="name">Name: </label>
+            <input class="form-control" type="text" name="name" placeholder="" style="width: 300px; margin: 1em">
+            <label for="message">Message: </label>
+            <textarea class="form-control" type="text" name="message" placeholder="" style="width: 300px; margin: 1em"></textarea>
+           <button type="submit" class="sendbtn">Send Message</button>
+          </div>
+        </form>
+      </section>
+      <section class="messages-page-conversations">
+        <% for (let message of messages) { %>
+            <div class="message-container">
+              <div class="message-main">
+                <span>Your ID: <%= message.buyer_id %></span>
+                <div class="message-listing-details">
+                  <div>Seller ID:  <%= message.shoe_id %></div>
+                </div>
+                <div class="message-body"><p><%= message.message %></p></div>
+              </div>
+              <div class="message-footer">
+                <i class="fa-solid fa-heart"></i>
+              </div>
+            </div>
+          <% } %>
+        </section>
+      </section>
+    </main>
+ </body>
 </html>
+
+
