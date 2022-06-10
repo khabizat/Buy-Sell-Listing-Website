@@ -41,7 +41,7 @@ const getMyMessages = function(user_id, db) {
 
   const getUserName = function (user_id, db) {
     return db
-    .query(`SELECT name
+    .query(`SELECT users.id
             FROM users
             WHERE users.id = $1`, [user_id])
     .then((result) => {
@@ -81,9 +81,8 @@ const getMyMessages = function(user_id, db) {
 
   router.post('/', (req, res) => {
     const buyer_id = req.session.user_id;
-    const shoe_id = 3;
+    const shoe_id = req.body.name;
     const message = req.body.message;
-    console.log('TEST>>>>', req.body)
     getUserName(req.session.user_id, db)
     .then((buyer_id) => {
       addNewMessage({buyer_id, shoe_id, message})
