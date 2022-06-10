@@ -8,50 +8,27 @@
 
 $(document).ready(function() {
 
-    function addToFavourite(event) {
-        event.preventDefault();
-        $('footer').click(function() {
-            console.log('Favourite button', this)
-        })
-    }
-
     $('.add-to-favourites').click(function() {
         const data = this.innerHTML;
         console.log('', data)
-        // $.ajax('/favourites', {method: 'POST', data})
-        //
-        // const $likeID = this.innerHTML;
-        // addToFavourite($likeID);
+
           window.scrollTo({
           top: 0,
           left: 0,
           behavior: 'smooth'
         });
       })
-    // function fetchProduct() {
-    //     $('.message-seller').click( (event) => {
+      $('.message-seller').click(function() {
+        const data = this.innerHTML;
+        console.log('', data)
 
-
-    //         $.ajax('/product', {method: 'POST', data})
-    //     })
-    // }
-
+          window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth'
+        });
+      })
 })
-
-
-
-
-
-
-//CODE RELATED TO HOME PAGE
-// function addToFavourites(data) {
-//   return $.ajax({
-//     method: "POST",
-//     url: "/favourites",
-//     data
-//   });
-// }
-
 
 
 
