@@ -42,12 +42,20 @@
 
 }
 
-.add-to-favourites i {
+.add-to-favourites {
   color: rgb(130, 15, 15);
  }
 
-.add-to-favourites i:hover {
+.add-to-favourites:hover {
  color: rgb(255, 0, 0);
  transform: scale(1.5);
 }
 
+.message-seller {
+ color: rgb(19, 19, 220);
+}
+
+.message-seller:hover {
+  color: rgb(33, 33, 249);
+  transform: scale(1.5);
+ }

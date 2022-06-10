@@ -1,0 +1,22 @@
+.messages-main {
+  display: flex;
+  flex-direction: row;
+  margin-left: 2em;
+  margin-top: 30px;
+}
+
+.messages-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.messages-page-conversations {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2em;
+}
