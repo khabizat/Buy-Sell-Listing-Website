@@ -1,3 +1,4 @@
+const { query } = require('express');
 const express = require('express');
 const router  = express.Router();
 
@@ -37,7 +38,7 @@ const getSellerListings = function(user_id, db) {
       .catch((err) => {
         console.log(err.message);
       });
-  }
+}
 
 
   const getUserName = function (user_id, db) {
@@ -52,10 +53,6 @@ const getSellerListings = function(user_id, db) {
       console.log(err.message);
     });
   }
-
-
-
-  // module.exports = { getListings };
 
   module.exports = (db) => {
     router.get("/", (req, res) => {
@@ -94,11 +91,4 @@ const getSellerListings = function(user_id, db) {
   });
   return router;
 };
-
-
-// demonstration of '...' functionality
-// let obj1 = {name: 'Foo'}
-// let obj2 = {...obj1}
-// obj1 === obj2
-
 
