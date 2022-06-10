@@ -1,13 +1,13 @@
 const express = require('express');
 const router  = express.Router();
 
-
+//Change hard-coded seller_id
 const deleteListing = function(seller_id, db) {
   return db
   .query(`
   DELETE FROM shoes
   WHERE seller_id = $1
-  AND shoes.id = 20;
+  AND shoes.id = 21;
   `, [seller_id])
   .then((result) => {
     return result.rows[0];
