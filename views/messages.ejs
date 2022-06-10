@@ -24,7 +24,7 @@
       <section class="messages-form">
         <form class="" action="/messages" method="POST">
           <div class="message-form">
-            <label for="name">Name: </label>
+            <label for="name">Send to: </label>
             <input class="form-control" type="text" name="name" placeholder="" style="width: 300px; margin: 1em">
             <label for="message">Message: </label>
             <textarea class="form-control" type="text" name="message" placeholder="" style="width: 300px; margin: 1em"></textarea>
@@ -33,13 +33,10 @@
         </form>
       </section>
       <section class="messages-page-conversations">
+        <h1>Your Messages</h1>
         <% for (let message of messages) { %>
             <div class="message-container">
               <div class="message-main">
-                <span>Your ID: <%= message.buyer_id %></span>
-                <div class="message-listing-details">
-                  <div>Seller ID:  <%= message.shoe_id %></div>
-                </div>
                 <div class="message-body"><p><%= message.message %></p></div>
               </div>
               <div class="message-footer">
