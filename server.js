@@ -57,7 +57,6 @@ const favouritesRoutes = require("./routes/favourites");
 const listingsRoutes = require("./routes/listings");
 const logoutRoutes = require("./routes/logout");
 
-
 // Mount all resource routes
 
 // Note: Feel free to replace the example routes below with your own
@@ -103,8 +102,6 @@ app.get("/", (req, res) => {
         shoes,
         user_name
       }
-      console.log('TEST FROM server.js ', templateVars.user_name)
-
       return res.render("index", templateVars);
     })
   })
