@@ -51,6 +51,9 @@
                     </div>
                     <div class="listing-description"><p><%= listing.description %></p></div>
                   </div>
+                  <form class="delete-button" method="post" action="/delete">
+                    <button class="btn btn-primary">Delete</button>
+                  </form>
                   <div class="listing-footer">
                     <div class="listing-delete-icon">
                       <i class="fa-solid fa-circle-trash"></i>
