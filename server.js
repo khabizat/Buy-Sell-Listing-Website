@@ -56,6 +56,7 @@ const messagesRoutes = require("./routes/messages");
 const favouritesRoutes = require("./routes/favourites");
 const listingsRoutes = require("./routes/listings");
 const logoutRoutes = require("./routes/logout");
+const deleteRoutes = require("./routes/delete_listing");
 
 // Mount all resource routes
 
@@ -67,6 +68,7 @@ app.use("/messages", messagesRoutes(db));
 app.use("/favourites", favouritesRoutes(db));
 app.use("/listings", listingsRoutes(db));
 app.use("/logout", logoutRoutes(db));
+app.use("/delete", deleteRoutes(db));
 
 // Note: mount other resources here, using the same pattern above
 
