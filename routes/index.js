@@ -10,7 +10,6 @@
 
 
 const { Pool } = require('pg');
-/// Users
 
 const pool = new Pool({
   user: 'labber',

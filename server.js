@@ -30,7 +30,7 @@ const pool = new Pool({
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
-//         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
+// The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan("dev"));
 
 app.set("view engine", "ejs");
@@ -48,7 +48,6 @@ app.use(
 app.use(express.static("public"));
 
 // Separated Routes for each Resource
-// Note: Feel free to replace the example routes below with your own
 // const indexRoutes = require("./routes/index");
 const loginRoutes = require("./routes/login");
 const registerRoutes = require("./routes/register");
@@ -59,8 +58,6 @@ const logoutRoutes = require("./routes/logout");
 const deleteRoutes = require("./routes/delete_listing");
 
 // Mount all resource routes
-
-// Note: Feel free to replace the example routes below with your own
 // app.use("/", indexRoutes(db));
 app.use("/login", loginRoutes(db));
 app.use("/register", registerRoutes(db));
@@ -70,13 +67,6 @@ app.use("/listings", listingsRoutes(db));
 app.use("/logout", logoutRoutes(db));
 app.use("/delete", deleteRoutes(db));
 
-// Note: mount other resources here, using the same pattern above
-
-// Home page
-// Warning: avoid creating more routes in this file!
-// Separate them into separate routes files (see above).
-
-//>>
 const getUserName = function (user_id) {
   return pool
   .query(`SELECT name
@@ -94,9 +84,7 @@ const getUserName = function (user_id) {
 const {getListings} = require("./routes/index");
 app.get("/", (req, res) => {
   getListings()
-  // .then(shoes => res.send({shoes}))
   .then(data => {
-    // console.log('HERE', data);
     getUserName(req.session.user_id)
     .then(user_name => {
       const shoes = data;
